@@ -1,26 +1,29 @@
 ﻿using System;
-using System.Text;
+using System.IO;
 
 namespace AllianceChallenge
 {
     public abstract class DataService
     {
-        protected DataService()
-        {
-        }
-
+        public string Id;
+        
         protected DataService(string dataFilePath)
         {
             DataFilePath = dataFilePath;
         }
 
-        private string DataFilePath;
+        private readonly string DataFilePath;
 
         public abstract void Save();
 
-        protected void SaveToFile(string dataRow)
+        protected bool SaveToFile(string dataRow)
         {
+            Id = Guid.NewGuid().ToString();
+            dataRow = Environment.NewLine + Id + ',' + dataRow;
+            using (var sw = File.AppendText(DataFilePath))
+                sw.Write(dataRow);
             
+            return true;
         }
     }
 }

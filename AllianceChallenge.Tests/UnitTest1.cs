@@ -21,10 +21,11 @@ namespace AllianceChallenge.Tests
             Assert.NotNull(customer.Id);
             Assert.IsNotEmpty(customer.Id);
             
-            // Assert.IsNullOrEmpty(company.Id);
+            // Assert.That(company.Id, Is.Null.Or.Empty);
             // company.Save();
-            // Assert.IsNotNullOrEmpty(company.Id);
-            //
+            // Assert.NotNull(company.Id);
+            // Assert.IsNotEmpty(company.Id);
+            
             // Customer savedCustomer = Customer.Find(customer.Id);
             // Assert.IsNotNull(savedCustomer);
             // Assert.AreSame(customer.Address, address);

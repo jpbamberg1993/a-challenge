@@ -1,12 +1,14 @@
-using System;
+using System.Data;
+using System.IO;
+using System.Reflection;
 
 namespace AllianceChallenge
 {
     public class Customer : DataService
     {
-        private const string _dataFilePath = "./Data/Customer.csv";
+        private static readonly string buildDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+        private static readonly string _dataFilePath = buildDir + @"/Data/Customer.csv";
 
-        public Guid Id;
         public readonly string FirstName;
         public readonly string LastName;
         public readonly Address Address;
@@ -20,8 +22,10 @@ namespace AllianceChallenge
 
         public override void Save()
         {
-            
-            Id = SaveToFile();
+            var dataRow = $"{FirstName},{LastName},{Address.Id}";
+            var response = SaveToFile(dataRow);
+            if (!response)
+                throw new DataException("Something went wrong when saving the customer.");
         }
     }
 }
